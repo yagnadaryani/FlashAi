@@ -1,206 +1,253 @@
-
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stranger Things UI</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stranger Things Themed UI/UX Page</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap'); /* Similar to Stranger Things font */
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #1a0000;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
             overflow: hidden;
-            position: relative;
-            animation: backgroundFlash 4s infinite;
-        }
-
-        @keyframes backgroundFlash {
-            0%, 100% {
-                background: #1a0000; /* dark red */
-            }
-            50% {
-                background: #00001a; /* dark blue */
-            }
-        }
-
-        .container {
+            background-color: #330000; /* Dark red inspired by Stranger Things */
+            color: #fff;
+            font-family: 'Cinzel', serif;
             display: flex;
-            height: 100vh;
-            position: relative;
-        }
-
-        .column {
-            flex: 1;
-            display: flex;
-            align-items: flex-start;
             justify-content: center;
-            padding-top: 60px;
+            align-items: center;
+            height: 100vh;
             position: relative;
         }
 
-        .column h1 {
-            font-size: 48px;
-            font-weight: 600;
-            letter-spacing: 2px;
-        }
-
-        .power-text {
-            color: #ffffff;
-            text-shadow: none;
-        }
-
-        .connection-text {
-            color: rgba(255, 255, 255, 0.85);
-            text-shadow: none;
-        }
-
-        /* Glowing divider line */
-        .divider {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.8) 20%, 
-                rgba(255, 255, 255, 0.9) 50%, 
-                rgba(255, 255, 255, 0.8) 80%, 
-                transparent 100%);
-            box-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 20px rgba(255, 255, 255, 0.6),
-                0 0 30px rgba(255, 255, 255, 0.4);
-            transform: translateX(-50%);
-            animation: lineGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes lineGlow {
-            0% {
-                box-shadow: 
-                    0 0 10px rgba(255, 255, 255, 0.8),
-                    0 0 20px rgba(255, 255, 255, 0.6),
-                    0 0 30px rgba(255, 255, 255, 0.4);
-            }
-            100% {
-                box-shadow: 
-                    0 0 15px rgba(255, 255, 255, 1),
-                    0 0 30px rgba(255, 255, 255, 0.8),
-                    0 0 45px rgba(255, 255, 255, 0.6);
-            }
-        }
-
-        /* Story text at bottom center */
-        .story-container {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-
-        .story-text {
-            font-size: 36px;
-            font-weight: 400;
-            color: #ffffff;
-            letter-spacing: 3px;
-            animation: typeAndDelete 4s infinite;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        @keyframes typeAndDelete {
-            0% {
-                width: 0;
-            }
-            40% {
-                width: 8ch;
-            }
-            60% {
-                width: 8ch;
-            }
-            100% {
-                width: 0;
-            }
-        }
-
-        /* Ambient particles */
+        /* Upside Down effect: floating white dust particles */
         .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: float 10s infinite;
+            pointer-events: none;
+            animation: float 10s infinite linear;
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(50px);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) translateX(0); opacity: 0.5; }
+            50% { transform: translateY(-100vh) translateX(5px); opacity: 0.8; }
+            100% { transform: translateY(-200vh) translateX(-5px); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .timeline {
+            position: absolute;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dot {
+            width: 40px; /* Horizontal oval */
+            height: 20px;
+            border: 2px solid #ff0000; /* Red border */
+            border-radius: 50%;
+            background: transparent; /* Hollow */
+            transition: background 0.5s;
+        }
+
+        .dot.connected {
+            background: #ff0000; /* Fill when connected */
+        }
+
+        .connections {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 100px;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        path {
+            fill: none;
+            stroke: #ff0000;
+            stroke-width: 2;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+
+        path.visible {
+            stroke-dashoffset: 0;
+        }
+
+        .sections {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 20%;
+            box-sizing: border-box;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s;
+            text-align: left;
+            max-width: 300px;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section.right {
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #ff0000;
+            margin: 0;
+            overflow: hidden; /* For typing effect */
+            white-space: nowrap;
+            border-right: 0.15em solid #ff0000;
+            animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+        }
+
+        p {
+            font-size: 1em;
+            color: #fff;
+            margin: 5px 0 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 0.15em solid #fff;
+            animation: typing 2s steps(40, end) 1s, blink-caret 0.75s step-end infinite 1s;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: currentColor; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="column">
-            <h1 class="power-text">Power</h1>
+        <div class="timeline">
+            <div class="dot" id="dot1"></div>
+            <div class="dot" id="dot2"></div>
+            <div class="dot" id="dot3"></div>
+            <div class="dot" id="dot4"></div>
+            <div class="dot" id="dot5"></div>
+            <div class="dot" id="dot6"></div>
         </div>
-        
-        <div class="divider"></div>
-        
-        <div class="column">
-            <h1 class="connection-text">Connection</h1>
+        <div class="connections">
+            <svg viewBox="0 0 100 500">
+                <!-- Zig-zag paths between dots, assuming dots spaced at 0,100,200,300,400,500 y -->
+                <path id="conn1" d="M50 0 L60 20 L40 40 L60 60 L40 80 L50 100" />
+                <path id="conn2" d="M50 100 L60 120 L40 140 L60 160 L40 180 L50 200" />
+                <path id="conn3" d="M50 200 L60 220 L40 240 L60 260 L40 280 L50 300" />
+                <path id="conn4" d="M50 300 L60 320 L40 340 L60 360 L40 380 L50 400" />
+                <path id="conn5" d="M50 400 L60 420 L40 440 L60 460 L40 480 L50 500" />
+            </svg>
         </div>
-        
-        <div class="story-container">
-            <div class="story-text">Story...</div>
+        <div class="sections">
+            <div class="section left" id="sec1">
+                <h1>Power</h1>
+                <p>the beginning of something strange</p>
+            </div>
+            <div class="section right" id="sec2">
+                <h1>Connection</h1>
+                <p>bond forming in darkness</p>
+            </div>
+            <div class="section left" id="sec3">
+                <h1>Story</h1>
+                <p>the narrative unfolds</p>
+            </div>
+            <div class="section right" id="sec4">
+                <h1>Reality</h1>
+                <p>truth becomes uncertain</p>
+            </div>
+            <div class="section left" id="sec5">
+                <h1>Fracture</h1>
+                <p>the world splits</p>
+            </div>
+            <div class="section right" id="sec6">
+                <h1>Upside Down</h1>
+                <p>Nothing will work out</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Create floating particles
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 10 + 's';
-            particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
-            document.body.appendChild(particle);
-            
-            setTimeout(() => particle.remove(), 15000);
+        // Create particles for dust effect
+        function createParticles() {
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${Math.random() * 3 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                document.body.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Animate sections and connections sequentially
+        const sections = document.querySelectorAll('.section');
+        const dots = document.querySelectorAll('.dot');
+        const conns = document.querySelectorAll('path');
+
+        function animateStep(index) {
+            if (index >= sections.length) return;
+
+            // Show section
+            sections[index].classList.add('visible');
+
+            // Connect previous dot if exists
+            if (index > 0) {
+                conns[index - 1].classList.add('visible');
+                dots[index].classList.add('connected');
+            } else {
+                dots[0].classList.add('connected');
+            }
+
+            // Next step after delay (typing animation ~3s)
+            setTimeout(() => animateStep(index + 1), 3000);
         }
 
-        // Generate particles periodically
-        setInterval(createParticle, 800);
-        
-        // Initial particles
-        for (let i = 0; i < 15; i++) {
-            setTimeout(createParticle, i * 200);
-        }
+        // Start animation
+        setTimeout(() => animateStep(0), 1000);
     </script>
 </body>
 </html>
-
+```
