@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stranger Things UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a0000;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            animation: backgroundFlash 4s infinite;
+        }
+
+        @keyframes backgroundFlash {
+            0%, 100% {
+                background: #1a0000; /* dark red */
+            }
+            50% {
+                background: #00001a; /* dark blue */
+            }
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 60px;
+            position: relative;
+        }
+
+        .column h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .power-text {
+            color: #ffffff;
+            text-shadow: none;
+        }
+
+        .connection-text {
+            color: rgba(255, 255, 255, 0.85);
+            text-shadow: none;
+        }
+
+        /* Glowing divider line */
+        .divider {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.8) 20%, 
+                rgba(255, 255, 255, 0.9) 50%, 
+                rgba(255, 255, 255, 0.8) 80%, 
+                transparent 100%);
+            box-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4);
+            transform: translateX(-50%);
+            animation: lineGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes lineGlow {
+            0% {
+                box-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4);
+            }
+            100% {
+                box-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 255, 255, 0.8),
+                    0 0 45px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        /* Story text at bottom center */
+        .story-container {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .story-text {
+            font-size: 36px;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 3px;
+            animation: typeAndDelete 4s infinite;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        @keyframes typeAndDelete {
+            0% {
+                width: 0;
+            }
+            40% {
+                width: 8ch;
+            }
+            60% {
+                width: 8ch;
+            }
+            100% {
+                width: 0;
+            }
+        }
+
+        /* Ambient particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 10s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="column">
+            <h1 class="power-text">Power</h1>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="column">
+            <h1 class="connection-text">Connection</h1>
+        </div>
+        
+        <div class="story-container">
+            <div class="story-text">Story...</div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 15000);
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 800);
+        
+        // Initial particles
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createParticle, i * 200);
+        }
+    </script>
+</body>
+</html>
+
